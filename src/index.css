@@ -42,7 +42,7 @@
   }
 
   .zoom-gift {
-    transform: scale(0.5);
+    zoom: 50%;
   }
 }
 

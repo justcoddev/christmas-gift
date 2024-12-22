@@ -1,4 +1,3 @@
-// globalMethods.js
 import React from "react";
 
 export const generateSnowflakes = (count) => {

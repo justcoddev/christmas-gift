@@ -5,12 +5,12 @@ const GiftBox = () => {
     // <div className="h-[150vh] w-[500px] mx-auto relative zoom-gift z-60">
     <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-[150vh] w-[500px] zoom-gift z-10">
       <section className="absolute bottom-0 w-[150px] left-[172px] z-[12] h-[180px] group">
-        <div className="absolute w-[120px] text-gray-700 font-sans font-extrabold rounded-md shadow-[0_1px_0_1px_#F9564AFF] p-2.5 text-[15px] bg-[#ffa69f] left-0 top-[100px] right-0 mx-auto leading-[26px] z-[-1] text-center transition-all duration-600 ease-in-out delay-[100ms] group-hover:top-[-10px] group-hover:delay-[400ms]">
+        <div className="absolute w-[120px] text-gray-700 font-sans font-extrabold rounded-md shadow-[0_1px_0_1px_#F9564AFF] p-2.5 text-[15px] bg-[#ffa69f] left-0 top-[100px] right-0 mx-auto leading-[26px] z-[-1] text-center transition-all duration-600 ease-in-out delay-[60ms] group-hover:top-[-10px] group-hover:delay-[400ms]">
           ADD YOUR
           <br />
           MESSAGE!!
         </div>
-        <section className="w-full absolute top-0 transition-all duration-600 ease-in-out delay-600 group-hover:top-[-100px] group-hover:delay-300">
+        <section className="w-full absolute top-0 transition-all duration-600 ease-in-out delay-550 group-hover:top-[-100px] group-hover:delay-300">
           <div className="w-[45px] h-[45px] rounded-full shadow-[0_0_0_10px_#FFCE54_inset] absolute right-[30px]"></div>
           <div className="w-[45px] h-[45px] rounded-full shadow-[0_0_0_10px_#FFCE54_inset] absolute left-[30px]"></div>
           <div className="h-7 rounded-md top-[45px] absolute w-[150px] bg-[#ff7d6d] shadow-[-75px_0_0_#ff6259_inset]"></div>
