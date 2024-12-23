@@ -10,6 +10,9 @@ body {
 input#open {
   display: none;
 }
+input#open2 {
+  display: none;
+}
 
 .valentines-day-card {
   position: relative;
@@ -20,13 +23,33 @@ input#open {
   transition: .3s;
 }
 
+.valentines-day-card2 {
+  position: relative;
+  width: 300px;
+  height: 240px;
+  transform-style: preserve-3d;
+  transform: perspective(2500px);
+  transition: .3s;
+}
+
+.card-front2 {
+  position: absolute;
+  background-color:  #f1e3d3;
+  width: 150px;
+  height: 250px;
+  transform-origin: right;
+  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, .15), 30px 0 50px rgba(0, 0, 0, 0.3);
+  transition: .3s;
+}
+
+
 .card-front {
   position: relative;
-  background-color: #fff0f3;
+  background-color: #f1e3d3;
   width: 300px;
   height: 250px;
   transform-origin: bottom;
-  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, .15), 30px 0 50px rgba(0, 0, 0, 0.3);
+  /* box-shadow: inset 100px 20px 100px rgba(0, 0, 0, .15), 30px 0 50px rgba(0, 0, 0, 0.3); */
   transition: .3s;
 }
 
@@ -35,15 +58,36 @@ input#open {
   position: absolute;
   width: 280px;
   height: 230px;
-  background-color: #d04e4e;
+  background-color: #f1e3d3;
+  /* top: 10px; */
+  /* left: 10px; */
+}
+
+.card-front2:before {
+  content: "";
+  position: absolute;
+   width: 130px;
+  height: 230px;
+  background-color: #f1e3d3;
   top: 10px;
   left: 10px;
 }
 
 .card-inside {
   position: absolute;
-  background-color: #fff0f3;
+  background-color: #f1e3d3;
   width: 300px;
+  height: 250px;
+  z-index: -1;
+  left: 0;
+  top: 0;
+ box-shadow: inset 0 -20px 30px rgba(0, 0, 0, 0.22), 0 20px 30px rgba(0, 0, 0, 0.1);
+
+}
+.card-inside2 {
+  position: absolute;
+  background-color: #f1e3d3;
+   width: 150px;
   height: 250px;
   z-index: -1;
   left: 0;
@@ -63,15 +107,41 @@ input#open {
   cursor: pointer;
 }
 
+.open2 {
+  position: absolute;
+   width: 130px;
+  height: 230px;
+  left: 0;
+  top: 0;
+  background-color: transparent;
+  z-index: 6;
+  cursor: pointer;
+}
+
 #open:checked ~ .card-front {
   transform: rotateX(-155deg);
   box-shadow: inset 100px 20px 100px rgba(0, 0, 0, .13), 30px 0 50px rgba(0, 0, 0, 0.1);
 }
 
+#open2:checked ~ .card-front2 {
+  transform: rotateY(155deg);
+  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, .13), 30px 0 50px rgba(0, 0, 0, 0.1);
+}
+
 #open:checked ~ .card-front:before {
   z-index: 5;
-  background-color: #fff0f3;
+  background-color: #f1e3d3;
   width: 300px;
+  height: 250px;
+  top: 0;
+  left: 0;
+  box-shadow: inset 0 -20px 30px rgba(0, 0, 0, 0.2), 0 -20px 30px rgba(0, 0, 0, 0.1);
+}
+
+#open2:checked ~ .card-front2:before {
+  z-index: 5;
+  background-color: #f1e3d3;
+  width: 150px;
   height: 250px;
   top: 0;
   left: 0;
