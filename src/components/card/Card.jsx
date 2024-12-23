@@ -1,51 +1,77 @@
 import React, { useEffect, useState } from 'react';
-import './Card.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
+import './Card.css';
 
 const Card = () => {
-  const [isSwitched, setIsSwitched] = useState(false); // Controla el cambio de clases
-  const [isFrontOpened, setIsFrontOpened] = useState(false); // Controla la animación de la tarjeta
+  const [isSwitched, setIsSwitched] = useState(false); // Controla el cambio de clases sin "2"
+  const [isSwitched2, setIsSwitched2] = useState(false); // Controla el cambio de clases con "2"
+  const [isVisible, setIsVisible] = useState(false); // Controla la visibilidad de las clases sin "2"
+  const [isVisible2, setIsVisible2] = useState(true); // Controla la visibilidad de las clases con "2"
 
   useEffect(() => {
-    // Activa la tarjeta con clases "2" después de 3 segundos
-    const timerOpen = setTimeout(() => {
+    // Activa las clases con "2" automáticamente después de 3 segundos
+    const timerOpen2 = setTimeout(() => {
       document.getElementById('open2').checked = true;
+      setIsSwitched2(true); // Cambia el estado para las clases con "2"
 
-      // Activa las clases sin "2" después de 2 segundos adicionales
+      // Haz que las clases con "2" se vuelvan invisibles antes de activar las clases sin "2"
+      setIsVisible2(false); // Hace invisibles las clases con "2"
+
+      // Oculta las clases con "2" y activa las clases sin "2" inmediatamente después
       const timerSwitch = setTimeout(() => {
+        setIsVisible(true); // Haz visibles las clases sin "2"
         setIsSwitched(true); // Cambia al estado con las clases sin "2"
-        document.getElementById('open2').checked = false; // Asegúrate de desactivar el checkbox "2"
+      }, 10); // Cambiar casi de inmediato
 
-        // Después de 3 segundos, activa la animación en la clase card-front
-        const timerOpenFront = setTimeout(() => {
-          document.getElementById('open').checked = true; // Abre la card-front automáticamente
-        }, 3000);
+      return () => clearTimeout(timerSwitch);
+    }, 2000);
 
-        return () => clearTimeout(timerOpenFront); // Limpia el temporizador de la animación front
-      }, 2000);
-
-      return () => clearTimeout(timerSwitch); // Limpia el segundo temporizador
-    }, 3000);
-
-    return () => clearTimeout(timerOpen); // Limpia el primer temporizador
+    return () => clearTimeout(timerOpen2);
   }, []);
+
+  useEffect(() => {
+    if (isSwitched) {
+      // Activa la tarjeta principal después de un breve tiempo
+      const timerOpen = setTimeout(() => {
+        document.getElementById('open').checked = true;
+      }, 500); // 3 segundos después de activar las clases sin "2"
+
+      return () => clearTimeout(timerOpen);
+    }
+  }, [isSwitched]);
 
   return (
     <div className={isSwitched ? "valentines-day-card" : "valentines-day-card2"}>
-      {!isSwitched && <input id="open2" type="checkbox" />}
-      {isSwitched && <input id="open" type="checkbox" />}
-      <label className={isSwitched ? "open" : "open2"} htmlFor={isSwitched ? "open" : "open2"}></label>
-
-      {isSwitched ? (
+      {!isSwitched && (
         <>
-          <div className="card-front"></div>
-          <div className="card-inside"></div>
-        </>
-      ) : (
-        <>
-          <div className="card-front2"></div>
-          <div className="card-inside2"></div>
+          <input id="open2" type="checkbox" checked={isSwitched2} readOnly />
+          <div
+            className="card-front2"
+            style={{ visibility: isVisible2 ? 'visible' : 'hidden' }} // Controla la visibilidad de las clases con "2"
+          ></div>
+          <div
+            className="card-inside2"
+            style={{ visibility: isVisible2 ? 'visible' : 'hidden' }} // Controla la visibilidad de las clases con "2"
+          ></div>
         </>
       )}
+      {isSwitched && (
+        <>
+          <input id="open" type="checkbox" />
+          <div
+            className="card-front"
+            style={{ visibility: isVisible ? 'visible' : 'hidden' }} // Controla la visibilidad de las clases sin "2"
+          ></div>
+          <div
+            className="card-inside"
+            style={{ visibility: isVisible ? 'visible' : 'hidden' }} // Controla la visibilidad de las clases sin "2"
+          >aqui va el mensajito </div>
+        </>
+      )}
+
+      <label
+        className={isSwitched ? "open" : "open2"}
+        htmlFor={isSwitched ? "open" : "open2"}
+      ></label>
     </div>
   );
 };
