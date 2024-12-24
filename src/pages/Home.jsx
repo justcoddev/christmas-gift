@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { useFormData } from '../utils/FormDataContext';
+import { useNavigate } from 'react-router-dom';
 import GiftAnimation from './GiftAnimation';
 
 const Home = () => {
-  const [formData, setFormData] = useState({
-    message: '',
-    from: '',
-    to: '',
-  });
+  const { formData, setFormData } = useFormData();
+  const [generatedURL, setGeneratedURL] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +14,18 @@ const Home = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const generateURL = () => {
+    const params = new URLSearchParams(formData).toString();
+    const uniqueURL = `${window.location.origin}/#/christmas-gift?${params}`;
+    setGeneratedURL(uniqueURL);
+  };
+
+  const navigateToURL = () => {
+    if (generatedURL) {
+      navigate(generatedURL.replace(`${window.location.origin}/#/`, ''));
+    }
   };
 
   return (
@@ -66,12 +78,37 @@ const Home = () => {
             />
           </div>
         </form>
+
+        <div className="mt-6 space-y-4">
+          <button
+            type="button"
+            onClick={generateURL}
+            className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+          >
+            Generar URL
+          </button>
+          {generatedURL && (
+            <>
+              <input
+                type="text"
+                readOnly
+                value={generatedURL}
+                className="w-full border border-gray-300 rounded-lg shadow-sm p-2"
+              />
+              <button
+                type="button"
+                onClick={navigateToURL}
+                className="bg-green-500 text-white px-4 py-2 rounded w-full"
+              >
+                Ir a la URL Generada
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="overflow-auto pt-4 md:pt-0 md:pl-4 flex justify-center items-center">
-        <div className="w-full h-auto flex justify-center items-center">
-          <GiftAnimation formData={formData} />
-        </div>
+        <GiftAnimation />
       </div>
     </div>
   );
