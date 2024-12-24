@@ -15,17 +15,26 @@ const Home = () => {
   };
 
   const generateURL = async () => {
-    const response = await fetch('/api/shorten', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ formData }),
-    });
+    try {
+      const response = await fetch('/api/shorten', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formData }),
+      });
 
-    const data = await response.json();
-    if (data.shortURL) {
-      setGeneratedURL(data.shortURL);
+      if (!response.ok) {
+        throw new Error(`Error en el servidor: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.shortURL) {
+        setGeneratedURL(data.shortURL);
+      }
+    } catch (error) {
+      console.error('Error al generar la URL:', error);
     }
   };
+
 
   const copyToClipboard = async () => {
     if (generatedURL) {

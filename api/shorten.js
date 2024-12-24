@@ -1,17 +1,27 @@
-export default async function handler(req, res) {
+const mockDatabase = {}; // Simulación de base de datos para guardar hashes
+
+export default function handler(req, res) {
   if (req.method === 'POST') {
-    const { formData } = req.body;
+    try {
+      const { formData } = req.body;
+      if (!formData) {
+        res.status(400).json({ error: 'Faltan datos en la solicitud.' });
+        return;
+      }
 
-    // Genera un hash único
-    const hash = Math.random().toString(36).substring(2, 8);
+      // Generar un hash único
+      const hash = Math.random().toString(36).substring(2, 8);
 
-    // Guarda el mensaje con el hash en tu base de datos (ejemplo simulado)
-    await saveMessage(hash, formData);
+      // Guardar en la base de datos simulada
+      mockDatabase[hash] = formData;
 
-    // Genera la URL con hash routing
-    const shortURL = `${req.headers.origin}/#/${hash}`;
-    res.status(200).json({ shortURL });
+      // Devolver la URL acortada
+      res.status(200).json({ shortURL: `${req.headers.origin}/q${hash}` });
+    } catch (error) {
+      console.error('Error en el servidor:', error);
+      res.status(500).json({ error: 'Error en el servidor.' });
+    }
   } else {
-    res.status(405).json({ error: 'Método no permitido' });
+    res.status(405).json({ error: 'Método no permitido.' });
   }
 }
