@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Card.css";
+import "./card.css";
 
 const Card = ({ isActive, onClose, formData }) => {
   if (!formData) {
