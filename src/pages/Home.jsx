@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { useFormData } from '../utils/FormDataContext';
-import { useNavigate } from 'react-router-dom';
 import GiftAnimation from './GiftAnimation';
 
 const Home = () => {
   const { formData, setFormData } = useFormData();
   const [generatedURL, setGeneratedURL] = useState('');
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,26 +14,25 @@ const Home = () => {
     }));
   };
 
-  const generateURL = () => {
-    const params = new URLSearchParams(formData).toString();
-    const uniqueURL = `${window.location.origin}/#/christmas-gift?${params}`;
-    setGeneratedURL(uniqueURL);
-  };
+  const generateURL = async () => {
+    const response = await fetch('/api/shorten', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ formData }),
+    });
 
-  const navigateToURL = () => {
-    if (generatedURL) {
-      navigate(generatedURL.replace(`${window.location.origin}/#/`, ''));
+    const data = await response.json();
+    if (data.shortURL) {
+      setGeneratedURL(data.shortURL);
     }
   };
 
   const copyToClipboard = async () => {
     if (generatedURL) {
       try {
-
         await navigator.clipboard.writeText(generatedURL);
         alert('URL copiada al portapapeles');
       } catch (err) {
-
         const textArea = document.createElement('textarea');
         textArea.value = generatedURL;
         document.body.appendChild(textArea);
@@ -46,7 +43,6 @@ const Home = () => {
       }
     }
   };
-
 
   const isFormComplete = formData.message && formData.from && formData.to;
 
@@ -129,15 +125,6 @@ const Home = () => {
                 Copiar
               </button>
             </div>
-          )}
-          {generatedURL && (
-            <button
-              type="button"
-              onClick={navigateToURL}
-              className="bg-green-500 text-white px-4 py-2 rounded w-full mt-4"
-            >
-              Ir a la URL Generada
-            </button>
           )}
         </div>
       </div>
