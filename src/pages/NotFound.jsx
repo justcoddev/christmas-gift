@@ -9,7 +9,7 @@ const NotFound = () => {
         {/* Imagen del Grinch */}
         <div className="mb-6">
           <img
-            src="/src/assets/gif/giphy.gif"
+            src="/gif/giphy.gif"
             alt="Grinch"
             className="mx-auto rounded-lg shadow-lg"
           />
