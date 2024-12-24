@@ -4,38 +4,29 @@ import { useLocation } from 'react-router-dom';
 import Card from '@/components/card/Card';
 import ChristmasGift from '@/components/ChristmasGift';
 import GiftBox from '@/components/GiftBox';
-
+// d
 const GiftAnimation = () => {
-  const { formData, setFormData } = useFormData();
+  const { formData, setFormData } = useFormData(); // Obtén y actualiza los datos del contexto
   const [isCardVisible, setIsCardVisible] = useState(false);
   const location = useLocation();
 
+  // Leer los parámetros de la URL y actualizar el contexto
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const hash = searchParams.get('hash');
+    const message = searchParams.get('message') || formData.message || '';
+    const from = searchParams.get('from') || formData.from || '';
+    const to = searchParams.get('to') || formData.to || '';
 
-    if (hash) {
-      fetch(`/api/redirect?hash=${hash}`) // Endpoint correcto
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error('Error al obtener datos del servidor.');
-          }
-          return res.json();
-        })
-        .then((data) => {
-          if (data.formData) {
-            setFormData(data.formData); // Establece los datos en el contexto
-          } else {
-            console.error('Datos no encontrados para este hash.');
-          }
-        })
-        .catch((err) => console.error('Error al cargar datos por hash:', err));
-    }
+    setFormData({ message, from, to });
   }, [location.search, setFormData]);
 
+  const handleGiftOpened = () => {
+    setIsCardVisible(true);
+  };
 
-  const handleGiftOpened = () => setIsCardVisible(true);
-  const handleCardClosed = () => setIsCardVisible(false);
+  const handleCardClosed = () => {
+    setIsCardVisible(false);
+  };
 
   return (
     <div className="relative h-screen w-screen">
