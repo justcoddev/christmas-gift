@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const RedirectToHash = () => {
   const router = useRouter();
@@ -7,7 +7,7 @@ const RedirectToHash = () => {
 
   useEffect(() => {
     if (hash) {
-      // Redirige al cliente al hash routing
+      // Redirige a la ruta de hash routing
       window.location.replace(`/#/christmas-gift?hash=${hash}`);
     }
   }, [hash]);
