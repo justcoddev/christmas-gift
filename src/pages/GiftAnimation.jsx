@@ -15,9 +15,13 @@ const GiftAnimation = () => {
     const hash = searchParams.get('hash');
 
     if (hash) {
-      // Llamar al endpoint para obtener datos por hash
       fetch(`/api/get-message?hash=${hash}`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('Error al obtener datos del servidor.');
+          }
+          return res.json();
+        })
         .then((data) => {
           if (data.message && data.from && data.to) {
             setFormData({ message: data.message, from: data.from, to: data.to });
