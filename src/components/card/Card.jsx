@@ -145,14 +145,34 @@ const Card = ({ isActive, onClose }) => {
           <input id="open" type="checkbox" />
           <div
             className="card-front"
-            style={{ visibility: isVisible ? "visible" : "hidden" }}
-          ></div>
+            style={{ visibility: isVisible ? "visible" : "hidden", width: '300px', height: '240px' }}
+          >
+            <div className="card-content">
+              <div className="p-6 text-center  h-full">
+                <h1 className="text-2xl font-bold text-green-600 mb-4">¡Feliz Navidad!</h1>
+                <p className="text-lg text-gray-700 mb-4">
+                  Que esta temporada esté llena de amor, paz y alegría, y que el próximo año
+                  te traiga aún más bendiciones. 🎄✨
+                </p>
+
+              </div>
+            </div>
+            {/* sadasdgnhhghbd */}
+          </div>
           <div
             className="card-inside"
-            style={{ visibility: isVisible ? "visible" : "hidden" }}
+            style={{ visibility: isVisible ? "visible" : "hidden", width: '300px', height: '250px' }}
           >
-            Aquí va el mensajito
+            <div className="p-6 text-center bg-white  h-full">
+              <h1 className="text-2xl font-bold text-green-600 mb-4">¡Feliz Navidad!</h1>
+              <p className="text-lg text-gray-700 mb-4">
+                Que esta temporada esté llena de amor, paz y alegría, y que el próximo año
+                te traiga aún más bendiciones. 🎄✨
+              </p>
+
+            </div>
           </div>
+
         </>
       )}
 

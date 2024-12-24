@@ -34,7 +34,7 @@ input#open2 {
 
 .card-front2 {
   position: absolute;
-  background-color:  #4a3c31;
+  background-color:  #f1e3d3;
   width: 150px;
   height: 250px;
   transform-origin: right;
@@ -43,8 +43,9 @@ input#open2 {
 }
 
  .card-front {
+  content: "";
   position: relative;
-  background-color: #4a3c31;
+  background-color: #f1e3d3;
   width: 300px;
   height: 250px;
   transform-origin: bottom;
@@ -71,11 +72,13 @@ input#open2 {
 
 /* //tarjeta de afuera interior */
 .card-front:before {
+  z-index: 4;
+  color: #374151;
   content: "";
   position: absolute;
   width: 280px;
   height: 240px;
-  background-color: #f1e3d3;
+  background-color: #ffffff;
   top: 10px;
   left: 10px;
 }
@@ -85,22 +88,22 @@ input#open2 {
   position: absolute;
    width: 140px;
   height: 230px;
-  background-color: #f1e3d3;
+  background-color: #ffffff;
   top: 10px;
   left: 10px;
 }
 
 .card-inside {
   position: absolute;
-  background-color: #f1e3d3;
+  background-color: #ffffff;
   width: 300px;
   height: 250px;
   z-index: -1;
   left: 0;
   top: 0;
-  border-top: 10px solid #4a3c31;  
-  border-left: 10px solid#4a3c31;  
-  border-right: 10px solid #4a3c31; 
+  border-top: 10px solid #f1e3d3;  
+  border-left: 10px solid#f1e3d3;  
+  border-right: 10px solid #f1e3d3; 
   border-bottom: none; 
   box-sizing: border-box;  /* Incluye el borde dentro de las dimensiones */
  box-shadow: inset 0 -20px 30px rgba(0, 0, 0, 0.22), 0 20px 30px rgba(0, 0, 0, 0.1);
@@ -108,15 +111,15 @@ input#open2 {
 }
 .card-inside2 {
   position: absolute;
-  background-color: #f1e3d3;
+  background-color: #ffffff;
    width: 150px;
   height: 250px;
   z-index: -1;
   left: 0;
   top: 0;
-   border-top: 10px solid #4a3c31;  
-  border-left: 10px solid#4a3c31; 
-  /* border-bottom: 10px solid #4a3c31;   */
+   border-top: 10px solid #f1e3d3;  
+  border-left: 10px solid#f1e3d3; 
+  /* border-bottom: 10px solid #f1e3d3;   */
   border-right: none;  
   box-sizing: border-box;  /* Incluye el borde dentro de las dimensiones */
  box-shadow: inset 0 -20px 30px rgba(0, 0, 0, 0.22), 0 20px 30px rgba(0, 0, 0, 0.1);
@@ -156,10 +159,12 @@ input#open2 {
 }
 
 #open:checked ~ .card-front:before {
-  z-index: 5;
-  background-color: #f1e3d3;
+  content: "";
+  color: #374151;
+  z-index: -1;
+  /* background-color: #ffffff;
   width: 280px;
-  height: 240px;
+  height: 240px; */
   top: 10;
   left: 10;
   box-shadow: inset 0 -20px 30px rgba(0, 0, 0, 0.2), 0 -20px 30px rgba(0, 0, 0, 0.1);
@@ -167,13 +172,18 @@ input#open2 {
 
 #open2:checked ~ .card-front2:before {
   z-index: 5;
-  background-color: #f1e3d3;
+  background-color: #ffffff;
   width: 140px;
   height: 240px;
   top: 10;
   left: 10;
   box-shadow: inset 0 -20px 30px rgba(0, 0, 0, 0.2), 0 -20px 30px rgba(0, 0, 0, 0.1);
 }
+
+.card-front .card-content {
+  transform: rotateX(180deg);
+}
+
 
 .card-front, .card-inside {
   visibility: hidden; /* Estado inicial */
