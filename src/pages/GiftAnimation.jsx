@@ -15,7 +15,7 @@ const GiftAnimation = () => {
     const hash = searchParams.get('hash');
 
     if (hash) {
-      fetch(`/api/get-message?hash=${hash}`)
+      fetch(`/api/redirect?hash=${hash}`) // Endpoint correcto
         .then((res) => {
           if (!res.ok) {
             throw new Error('Error al obtener datos del servidor.');
@@ -23,8 +23,8 @@ const GiftAnimation = () => {
           return res.json();
         })
         .then((data) => {
-          if (data.message && data.from && data.to) {
-            setFormData({ message: data.message, from: data.from, to: data.to });
+          if (data.formData) {
+            setFormData(data.formData); // Establece los datos en el contexto
           } else {
             console.error('Datos no encontrados para este hash.');
           }
@@ -32,6 +32,7 @@ const GiftAnimation = () => {
         .catch((err) => console.error('Error al cargar datos por hash:', err));
     }
   }, [location.search, setFormData]);
+
 
   const handleGiftOpened = () => setIsCardVisible(true);
   const handleCardClosed = () => setIsCardVisible(false);

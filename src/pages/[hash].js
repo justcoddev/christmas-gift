@@ -7,7 +7,6 @@ const RedirectToHash = () => {
 
   useEffect(() => {
     if (hash) {
-      // Redirige a la ruta de hash routing
       window.location.replace(`/#/christmas-gift?hash=${hash}`);
     }
   }, [hash]);
