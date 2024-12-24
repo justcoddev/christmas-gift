@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const navItemsDesktop = [
-  { id: 1, name: "Christmas Gift", link: "/christmas-gift" },
-  { id: 2, name: "", link: "https://github.com/justcoddev/christmas-gift" },
+  { id: 1, name: "Christmas Gift", link: "/christmas-gift", target: "_self" },
+  { id: 2, name: "", link: "https://github.com/justcoddev/christmas-gift", target: "_blank" },
 ];
 
 const Header = () => {
@@ -43,7 +43,7 @@ const Header = () => {
             <NavLink
               key={item.id}
               to={item.link}
-              target={item.id === 3 ? "_blank" : "_self"} // Abre el enlace de GitHub en una nueva pestaña
+              target={item.target}  // Abre el enlace de GitHub en una nueva pestaña
               className={({ isActive }) =>
                 `flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-sm ${isActive ? "font-semibold decoration-black" : ""
                 }`

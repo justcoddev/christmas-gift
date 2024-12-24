@@ -28,6 +28,28 @@ const Home = () => {
     }
   };
 
+  const copyToClipboard = async () => {
+    if (generatedURL) {
+      try {
+
+        await navigator.clipboard.writeText(generatedURL);
+        alert('URL copiada al portapapeles');
+      } catch (err) {
+
+        const textArea = document.createElement('textarea');
+        textArea.value = generatedURL;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('URL copiada al portapapeles');
+      }
+    }
+  };
+
+
+  const isFormComplete = formData.message && formData.from && formData.to;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-screen p-4 pt-8">
       <div className="overflow-auto border-b md:border-b-0 md:border-r border-gray-300 pb-4 md:pb-0 md:pr-4">
@@ -83,26 +105,39 @@ const Home = () => {
           <button
             type="button"
             onClick={generateURL}
-            className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+            disabled={!isFormComplete}
+            className={`px-4 py-2 rounded w-full ${isFormComplete
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
           >
             Generar URL
           </button>
           {generatedURL && (
-            <>
+            <div className="flex items-center gap-2 mt-4">
               <input
                 type="text"
                 readOnly
                 value={generatedURL}
-                className="w-full border border-gray-300 rounded-lg shadow-sm p-2"
+                className="w-full sm:w-[250px] md:w-[300px] lg:w-[400px] border border-gray-300 rounded-lg shadow-sm p-2"
               />
               <button
                 type="button"
-                onClick={navigateToURL}
-                className="bg-green-500 text-white px-4 py-2 rounded w-full"
+                onClick={copyToClipboard}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
               >
-                Ir a la URL Generada
+                Copiar
               </button>
-            </>
+            </div>
+          )}
+          {generatedURL && (
+            <button
+              type="button"
+              onClick={navigateToURL}
+              className="bg-green-500 text-white px-4 py-2 rounded w-full mt-4"
+            >
+              Ir a la URL Generada
+            </button>
           )}
         </div>
       </div>

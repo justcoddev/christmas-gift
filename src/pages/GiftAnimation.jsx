@@ -13,9 +13,9 @@ const GiftAnimation = () => {
   // Leer los parámetros de la URL y actualizar el contexto
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const message = searchParams.get('message') || formData.message || '¡Feliz Navidad!';
-    const from = searchParams.get('from') || formData.from || 'Anónimo';
-    const to = searchParams.get('to') || formData.to || 'Tú';
+    const message = searchParams.get('message') || formData.message || '';
+    const from = searchParams.get('from') || formData.from || '';
+    const to = searchParams.get('to') || formData.to || '';
 
     setFormData({ message, from, to });
   }, [location.search, setFormData]);
