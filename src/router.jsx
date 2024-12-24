@@ -1,4 +1,4 @@
-import { createHashRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import MainLayout from "./layouts/MainLayout";
@@ -8,7 +8,8 @@ import GiftAnimation from "./pages/GiftAnimation";
 
 const NotImplementedYet = () => <h1>Not implemented yet</h1>;
 
-const router = createHashRouter([
+
+const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
@@ -36,5 +37,7 @@ const router = createHashRouter([
     element: <Navigate to="/not-found" replace />,
   },
 ]);
+
 export default router;
+
 
