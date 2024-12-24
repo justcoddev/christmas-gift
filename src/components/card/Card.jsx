@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Card.css";
 
-const Card = ({ isActive, onClose }) => {
+const Card = ({ isActive, onClose, formData }) => {
+  if (!formData) {
+    formData = { from: 'El Grinch', to: 'tí', message: '¡Feliz Navidad! 🎄... O algo así.' };
+
+  }
+
   const [isSwitched, setIsSwitched] = useState(false); // Controla el cambio de clases sin "2"
   const [isSwitched2, setIsSwitched2] = useState(false); // Controla el cambio de clases con "2"
   const [isVisible, setIsVisible] = useState(false); // Controla la visibilidad de las clases sin "2"
@@ -149,11 +154,8 @@ const Card = ({ isActive, onClose }) => {
           >
             <div className="card-content">
               <div className="p-6 text-center  h-full">
-                <h1 className="text-2xl font-bold text-green-600 mb-4">¡Feliz Navidad!</h1>
-                <p className="text-lg text-gray-700 mb-4">
-                  Que esta temporada esté llena de amor, paz y alegría, y que el próximo año
-                  te traiga aún más bendiciones. 🎄✨
-                </p>
+                <p className="text-sm text-gray-500">De: {formData.from}</p>
+                <p className="text-sm text-gray-500">Para: {formData.to}</p>
 
               </div>
             </div>
@@ -166,8 +168,7 @@ const Card = ({ isActive, onClose }) => {
             <div className="p-6 text-center bg-white  h-full">
               <h1 className="text-2xl font-bold text-green-600 mb-4">¡Feliz Navidad!</h1>
               <p className="text-lg text-gray-700 mb-4">
-                Que esta temporada esté llena de amor, paz y alegría, y que el próximo año
-                te traiga aún más bendiciones. 🎄✨
+                {formData.message}
               </p>
 
             </div>
