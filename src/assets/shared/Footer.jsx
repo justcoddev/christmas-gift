@@ -106,8 +106,20 @@ const Footer = () => {
 
           {/* Nota final */}
           <p className="text-gray-500 text-xs">
-            © {new Date().getFullYear()} Built with ❤️? by a justcoddev.
+            © {new Date().getFullYear()} Built with ❤️ by{" "}
+            <span className="hidden md:inline">justcoddev</span>
+            <a
+              href="https://github.com/justcoddev/christmas-gift"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:text-blue-700 md:hidden"
+            >
+              justcoddev
+            </a>.
           </p>
+
+
+
         </div>
       </footer>
 
