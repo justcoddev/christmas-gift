@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Card from '@/components/card/Card';
 import ChristmasGift from '@/components/ChristmasGift';
 import GiftBox from '@/components/GiftBox';
-
+// d
 const GiftAnimation = () => {
   const { formData, setFormData } = useFormData(); // Obtén y actualiza los datos del contexto
   const [isCardVisible, setIsCardVisible] = useState(false);
