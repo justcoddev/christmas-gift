@@ -154,8 +154,8 @@ const Card = ({ isActive, onClose, formData }) => {
           >
             <div className="card-content">
               <div className="p-6 text-center  h-full">
-                <p className="text-sm text-gray-500">De: {formData.from}</p>
-                <p className="text-sm text-gray-500">Para: {formData.to}</p>
+                <p className="text-base text-gray-500">De: {formData.from}</p>
+                <p className="text-base text-gray-500">Para: {formData.to}</p>
 
               </div>
             </div>
@@ -167,9 +167,15 @@ const Card = ({ isActive, onClose, formData }) => {
           >
             <div className="p-6 text-center bg-white  h-full">
               <h1 className="text-2xl font-bold text-green-600 mb-4">¡Feliz Navidad!</h1>
-              <p className="text-lg text-gray-700 mb-4">
+              <p
+                className="text-gray-700  mb-4 h-[150px] text-center leading-tight break-words overflow-hidden"
+                style={{
+                  fontSize: `clamp(11px, ${360 / (formData.message?.length || 1)}px, 18px)`,
+                }}
+              >
                 {formData.message}
               </p>
+
 
             </div>
           </div>
