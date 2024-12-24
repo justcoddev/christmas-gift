@@ -10,48 +10,27 @@ const GiftAnimation = () => {
   const [isCardVisible, setIsCardVisible] = useState(false);
   const location = useLocation();
 
-  // Estado para manejar si los datos están cargados
-  const [loading, setLoading] = useState(true);
-
-  // Leer los datos desde el hash o directamente de los parámetros de la URL
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const hash = searchParams.get('hash'); // Obtén el hash si está presente
+    const hash = searchParams.get('hash');
 
     if (hash) {
-      // Fetch los datos usando el hash
-      fetch(`/api/message?hash=${hash}`)
-        .then((response) => response.json())
+      // Llamar al endpoint para obtener datos por hash
+      fetch(`/api/get-message?hash=${hash}`)
+        .then((res) => res.json())
         .then((data) => {
-          setFormData(data); // Actualiza el contexto con los datos obtenidos
-          setLoading(false); // Indica que los datos han sido cargados
+          if (data.message && data.from && data.to) {
+            setFormData({ message: data.message, from: data.from, to: data.to });
+          } else {
+            console.error('Datos no encontrados para este hash.');
+          }
         })
-        .catch((err) => {
-          console.error('Error al cargar los datos del mensaje:', err);
-          setLoading(false);
-        });
-    } else {
-      // Obtén los datos de los parámetros directamente
-      const message = searchParams.get('message') || formData.message || '';
-      const from = searchParams.get('from') || formData.from || '';
-      const to = searchParams.get('to') || formData.to || '';
-
-      setFormData({ message, from, to });
-      setLoading(false);
+        .catch((err) => console.error('Error al cargar datos por hash:', err));
     }
   }, [location.search, setFormData]);
 
-  const handleGiftOpened = () => {
-    setIsCardVisible(true);
-  };
-
-  const handleCardClosed = () => {
-    setIsCardVisible(false);
-  };
-
-  if (loading) {
-    return <div>Cargando...</div>; // Muestra un estado de carga mientras se obtienen los datos
-  }
+  const handleGiftOpened = () => setIsCardVisible(true);
+  const handleCardClosed = () => setIsCardVisible(false);
 
   return (
     <div className="relative h-screen w-screen">

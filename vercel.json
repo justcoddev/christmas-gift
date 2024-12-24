@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/q:hash",
+      "destination": "/#/christmas-gift?hash=:hash"
+    }
+  ]
+}
