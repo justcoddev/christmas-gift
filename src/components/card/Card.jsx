@@ -10,81 +10,117 @@ const Card = ({ isActive, onClose }) => {
 
   useEffect(() => {
     if (isActive && !isReturning) {
-      // Paso 1: Mostrar solo `card-inside2` durante 2 segundos
-      setIsVisible2(true); // Asegura que `card-inside2` sea visible
-      setIsSwitched2(false); // Desactiva `card-front2`
+      try {
+        // Paso 1: Mostrar solo `card-inside2` durante 2 segundos
+        setIsVisible2(true); // Asegura que `card-inside2` sea visible
+        setIsSwitched2(false); // Desactiva `card-front2`
 
-      const timerVisibleInside2 = setTimeout(() => {
-        // Paso 2: Activar `card-front2` y su transición
-        document.getElementById("open2").checked = true;
-        setIsSwitched2(true); // Activa `card-front2`
+        const timerVisibleInside2 = setTimeout(() => {
+          try {
+            // Paso 2: Activar `card-front2` y su transición
+            document.getElementById("open2").checked = true;
+            setIsSwitched2(true); // Activa `card-front2`
 
-        // Después de 500ms, ocultar `card-inside2` y preparar el cambio a `card-front`
-        const timerSwitchToFront = setTimeout(() => {
-          setIsVisible2(false); // Oculta `card-inside2`
-          setIsVisible(true); // Hace visible `card-front`
+            // Después de 500ms, ocultar `card-inside2` y preparar el cambio a `card-front`
+            const timerSwitchToFront = setTimeout(() => {
+              try {
+                setIsVisible2(false); // Oculta `card-inside2`
+                setIsVisible(true); // Hace visible `card-front`
 
-          // Activar el `checked` de `card-front`
-          const openInput = document.getElementById("open");
-          if (openInput) openInput.checked = true;
+                // Activar el `checked` de `card-front`
+                const openInput = document.getElementById("open");
+                if (openInput) openInput.checked = true;
 
-          setIsSwitched(true); // Cambia al estado principal
-          setIsSwitched2(false); // Desactiva el estado de `card-front2`
-        }, 500); // Tiempo para transición de `card-front2` -> `card-front`
+                setIsSwitched(true); // Cambia al estado principal
+                setIsSwitched2(false); // Desactiva el estado de `card-front2`
+              } catch (error) {
+                console.error("Error en el temporizador de cambio a card-front:", error);
+              }
+            }, 500); // Tiempo para transición de `card-front2` -> `card-front`
 
-        return () => clearTimeout(timerSwitchToFront);
-      }, 500); // Tiempo que `card-inside2` está visible
+            return () => clearTimeout(timerSwitchToFront);
+          } catch (error) {
+            console.error("Error al activar card-front2:", error);
+          }
+        }, 500); // Tiempo que `card-inside2` está visible
 
-      return () => clearTimeout(timerVisibleInside2);
+        return () => clearTimeout(timerVisibleInside2);
+      } catch (error) {
+        console.error("Error en el uso de useEffect para transición:", error);
+      }
     }
   }, [isActive, isReturning]);
 
 
   useEffect(() => {
     if (isSwitched) {
-      // Activa la tarjeta principal después de un breve tiempo
-      const timerOpen = setTimeout(() => {
-        document.getElementById("open").checked = true;
-      }, 500);
+      try {
+        // Activa la tarjeta principal después de un breve tiempo
+        const timerOpen = setTimeout(() => {
+          try {
+            document.getElementById("open").checked = true;
+          } catch (error) {
+            console.error("Error al activar card-front:", error);
+          }
+        }, 500);
 
-      return () => clearTimeout(timerOpen);
+        return () => clearTimeout(timerOpen);
+      } catch (error) {
+        console.error("Error en el temporizador para abrir card:", error);
+      }
     }
   }, [isSwitched]);
 
   const handleReverse = () => {
-    setIsReturning(true);
+    try {
+      setIsReturning(true);
 
-    // Paso 1: Desactiva la card-front
-    const openInput = document.getElementById("open");
-    if (openInput) openInput.checked = false;
-
-    setTimeout(() => {
-      // Paso 2: Oculta la card-front y hace visible la card-front2 y card-inside2
-      setIsVisible(false);
-      setIsVisible2(true);
-      setIsSwitched(false);
-      setIsSwitched2(true);
-
-      // Activa el checked de card-front2
-      const open2Input = document.getElementById("open2");
-      if (open2Input) open2Input.checked = true;
+      // Paso 1: Desactiva la card-front
+      const openInput = document.getElementById("open");
+      if (openInput) openInput.checked = false;
 
       setTimeout(() => {
-        // Paso 3: Desactiva la card-front2
-        if (open2Input) open2Input.checked = false; // Asegúrate de desactivar el checked
-        setIsSwitched2(false);
+        try {
+          // Paso 2: Oculta la card-front y hace visible la card-front2 y card-inside2
+          setIsVisible(false);
+          setIsVisible2(true);
+          setIsSwitched(false);
+          setIsSwitched2(true);
 
-        setTimeout(() => {
-          // Finaliza el reversa y limpia los estados
-          setIsReturning(false);
+          // Activa el checked de card-front2
+          const open2Input = document.getElementById("open2");
+          if (open2Input) open2Input.checked = true;
 
-          // Llama a onClose al finalizar
-          if (onClose) {
-            onClose();
-          }
-        }, 300); // Tiempo para limpiar después de desactivar card-front2
-      }, 300); // Tiempo para mantener activada la card-front2
-    }, 300); // Tiempo para ocultar la card-front
+          setTimeout(() => {
+            try {
+              // Paso 3: Desactiva la card-front2
+              if (open2Input) open2Input.checked = false; // Asegúrate de desactivar el checked
+              setIsSwitched2(false);
+
+              setTimeout(() => {
+                try {
+                  // Finaliza el reversa y limpia los estados
+                  setIsReturning(false);
+
+                  // Llama a onClose al finalizar
+                  if (onClose) {
+                    onClose();
+                  }
+                } catch (error) {
+                  console.error("Error en el temporizador de finalización:", error);
+                }
+              }, 300); // Tiempo para limpiar después de desactivar card-front2
+            } catch (error) {
+              console.error("Error en el temporizador de desactivación de card-front2:", error);
+            }
+          }, 300); // Tiempo para mantener activada la card-front2
+        } catch (error) {
+          console.error("Error en el temporizador de reversa:", error);
+        }
+      }, 300); // Tiempo para ocultar la card-front
+    } catch (error) {
+      console.error("Error en handleReverse:", error);
+    }
   };
 
 
