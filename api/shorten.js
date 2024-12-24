@@ -1,25 +1,20 @@
-import { nanoid } from 'nanoid'; // Instala nanoid: npm install nanoid
-
-// Simulación de una base de datos (para producción, usa un servicio como Firebase, DynamoDB, etc.)
-const urlDatabase = {};
+import { saveMessage } from '../../utils/database'; // Simula guardar datos en tu base
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { formData } = req.body;
 
-    if (!formData) {
-      return res.status(400).json({ error: 'Faltan datos.' });
-    }
+    // Genera un hash único
+    const hash = Math.random().toString(36).substring(2, 8);
 
-    const hash = nanoid(6); // Genera un hash único de 6 caracteres
-    const baseURL = 'https://christmasgift.justcoddev.com';
-    const shortURL = `${baseURL}/${hash}`;
+    // Guarda el mensaje con el hash
+    await saveMessage(hash, formData);
 
-    // Guarda el hash con la información
-    urlDatabase[hash] = formData;
+    // Genera la URL con el hash routing
+    const shortURL = `${req.headers.origin}/#/${hash}`;
 
-    return res.status(200).json({ shortURL });
+    res.status(200).json({ shortURL });
+  } else {
+    res.status(405).json({ error: 'Método no permitido' });
   }
-
-  res.status(405).json({ error: 'Método no permitido.' });
 }
