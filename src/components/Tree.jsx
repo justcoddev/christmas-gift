@@ -8,7 +8,7 @@ const Tree = () => {
 
   return (
     <div>
-      <ul className="absolute top-[33vh] left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 z-50">
+      <ul className="absolute top-[33vh] left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2">
         {[...Array(5)].map((_, i) => (
           <li
             key={i}

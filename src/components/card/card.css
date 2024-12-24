@@ -1,11 +1,11 @@
-body {
+/* body {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f30e0e;
+  background-color: transparent;
   font-family: 'Mochiy Pop P One', sans-serif;
-}
+} */
 
 input#open {
   display: none;
